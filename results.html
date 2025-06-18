@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results Portal | KPEMBE M/A JHS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #e65100;
+      --primary-dark: #bf360c;
+      --accent: #ffb300;
+      --dark: #1a1a1a;
+      --darker: #0f0f0f;
+      --light: #f5f5f5;
+      --card-bg: rgba(30, 30, 30, 0.9);
+      --success: #4caf50;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding-top: 95px;
+      line-height: 1.6;
+    }
+
+    /* Header with Logo */
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 65px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .logo:hover {
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    .school-name {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .school-name span {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 8px 0;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Results Portal Container */
+    .results-portal {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .portal-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .portal-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .portal-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #ccc;
+    }
+
+    /* Search Form */
+    .search-form {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      margin-bottom: 40px;
+      border-top: 4px solid var(--accent);
+    }
+
+    .form-title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(20, 20, 20, 0.7);
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 179, 0, 0.3);
+    }
+
+    .submit-btn {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .submit-btn button {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      color: white;
+      padding: 16px 50px;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 20px rgba(230, 81, 0, 0.4);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .submit-btn button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(230, 81, 0, 0.6);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    }
+
+    /* Results Display */
+    .result-output {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      margin-top: 30px;
+      display: none;
+      border-top: 4px solid var(--success);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .result-header h2 {
+      font-size: 2.2rem;
+      color: var(--success);
+      margin-bottom: 10px;
+    }
+
+    .result-header p {
+      color: #ccc;
+      font-size: 1.1rem;
+    }
+
+    .student-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(20, 20, 20, 0.5);
+      border-radius: 10px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-item .label {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .info-item .value {
+      font-size: 1.1rem;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+    }
+
+    .results-table th {
+      background: rgba(230, 81, 0, 0.2);
+      padding: 15px;
+      text-align: left;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .results-table td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .results-table tr:hover {
+      background: rgba(255, 179, 0, 0.05);
+    }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .summary-card {
+      background: rgba(20, 20, 20, 0.5);
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .summary-card h3 {
+      color: var(--accent);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .summary-card .value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .summary-card .remark {
+      margin-top: 10px;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .action-btn {
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .print-btn {
+      background: var(--accent);
+      color: var(--darker);
+    }
+
+    .new-search-btn {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("hero.jpg");
+      background-size: cover;
+    }
+
+    footer p {
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer strong {
+      color: var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    footer strong:hover {
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.8);
+      transform: scale(1.05);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Loading spinner */
+    .loader {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 179, 0, 0.3);
+      border-top: 5px solid var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Media Queries */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+      }
+      
+      nav {
+        gap: 15px;
+      }
+      
+      .search-form,
+      .result-output {
+        padding: 25px;
+      }
+      
+      .portal-header h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .student-info {
+        grid-template-columns: 1fr;
+      }
+      
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .actions {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .action-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="KPEMBE M/A JHS Logo" class="logo">
+      <div class="school-name">KPEMBE <span>M/A JHS</span></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="staff.html">Staff</a>
+      <a href="news.html">News</a>
+      <a href="results.html" class="active">Results</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="results-portal">
+    <div class="portal-header">
+      <h1>Student Results Portal</h1>
+      <p>Check your academic results by providing your details below. Results are available for Form 1, Form 2, and Form 3 students.</p>
+    </div>
+
+    <div class="search-form">
+      <h2 class="form-title">Find Your Results</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="class">Class</label>
+          <select id="class" required>
+            <option value="">Select Class</option>
+            <option value="form1">Form 1</option>
+            <option value="form2">Form 2</option>
+            <option value="form3">Form 3</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" required>
+        </div>
+        
+        <div class="submit-btn">
+          <button type="button" id="checkResults">
+            <i class="fas fa-search"></i> Check Results
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="loader">
+      <div class="spinner"></div>
+      <p>Searching for your results...</p>
+    </div>
+
+    <div class="result-output" id="resultOutput">
+      <div class="result-header">
+        <h2>Academic Results</h2>
+        <p>Term 2, 2023/2024 Academic Year</p>
+      </div>
+      
+      <div class="student-info">
+        <div class="info-item">
+          <span class="label">Student Name</span>
+          <span class="value" id="studentName">-</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Class</span>
+          <span class="value" id="studentClass">-</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Date of Birth</span>
+          <span class="value" id="studentDOB">-</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Academic Year</span>
+          <span class="value">2023/2024</span>
+        </div>
+      </div>
+      
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTable">
+          <!-- Results will be populated here -->
+        </tbody>
+      </table>
+      
+      <div class="summary-cards">
+        <div class="summary-card">
+          <h3>Total Score</h3>
+          <div class="value" id="totalScore">-</div>
+        </div>
+        <div class="summary-card">
+          <h3>Average Score</h3>
+          <div class="value" id="averageScore">-</div>
+          <div class="remark" id="performanceRemark">-</div>
+        </div>
+        <div class="summary-card">
+          <h3>Class Position</h3>
+          <div class="value" id="classPosition">-</div>
+          <div class="remark">Out of 120 students</div>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button class="action-btn print-btn" id="printResults">
+          <i class="fas fa-print"></i> Print Results
+        </button>
+        <button class="action-btn new-search-btn" id="newSearch">
+          <i class="fas fa-search"></i> New Search
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by <strong>Universal Class of 2020</strong> with ❤️</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkBtn = document.getElementById('checkResults');
+      const resultOutput = document.getElementById('resultOutput');
+      const loader = document.querySelector('.loader');
+      const printBtn = document.getElementById('printResults');
+      const newSearchBtn = document.getElementById('newSearch');
+      
+      // Sample subject data
+      const subjects = [
+        "Mathematics", "English Language", "Integrated Science", 
+        "Social Studies", "ICT", "Religious & Moral Education",
+        "Ghanaian Language", "French"
+      ];
+      
+      // Function to generate random grades
+      function getRandomGrade(score) {
+        if (score >= 80) return 'A';
+        if (score >= 70) return 'B';
+        if (score >= 60) return 'C';
+        if (score >= 50) return 'D';
+        return 'E';
+      }
+      
+      // Function to generate random results
+      function generateRandomResults() {
+        const results = [];
+        let totalScore = 0;
+        
+        subjects.forEach(subject => {
+          const score = Math.floor(Math.random() * 41) + 60; // 60-100
+          const grade = getRandomGrade(score);
+          const remarks = score >= 70 ? "Excellent" : 
+                         score >= 60 ? "Good" : 
+                         score >= 50 ? "Satisfactory" : "Needs Improvement";
+          
+          results.push({
+            subject,
+            score,
+            grade,
+            remarks
+          });
+          
+          totalScore += score;
+        });
+        
+        const averageScore = (totalScore / subjects.length).toFixed(1);
+        const position = Math.floor(Math.random() * 20) + 1;
+        const positionSuffix = position === 1 ? "st" : 
+                              position === 2 ? "nd" : 
+                              position === 3 ? "rd" : "th";
+        
+        let performanceRemark;
+        if (averageScore >= 80) performanceRemark = "Outstanding Performance";
+        else if (averageScore >= 70) performanceRemark = "Excellent Performance";
+        else if (averageScore >= 60) performanceRemark = "Good Performance";
+        else if (averageScore >= 50) performanceRemark = "Satisfactory Performance";
+        else performanceRemark = "Needs Improvement";
+        
+        return {
+          results,
+          totalScore,
+          averageScore,
+          position: position + positionSuffix,
+          performanceRemark
+        };
+      }
+      
+      // Check results function
+      checkBtn.addEventListener('click', function() {
+        const studentClass = document.getElementById('class').value;
+        const fullName = document.getElementById('fullName').value;
+        const dob = document.getElementById('dob').value;
+        
+        if (!studentClass || !fullName || !dob) {
+          alert("Please fill in all fields");
+          return;
+        }
+        
+        // Show loader
+        loader.style.display = 'block';
+        resultOutput.style.display = 'none';
+        
+        // Simulate API call to Google Sheets
+        setTimeout(() => {
+          // Hide loader
+          loader.style.display = 'none';
+          
+          // Update student info
+          document.getElementById('studentName').textContent = fullName;
+          document.getElementById('studentClass').textContent = studentClass.toUpperCase().replace('form', 'Form ');
+          document.getElementById('studentDOB').textContent = new Date(dob).toLocaleDateString();
+          
+          // Generate and display results
+          const resultData = generateRandomResults();
+          
+          // Populate results table
+          const tableBody = document.getElementById('resultsTable');
+          tableBody.innerHTML = '';
+          
+          resultData.results.forEach(subject => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${subject.subject}</td>
+              <td>${subject.score}</td>
+              <td>${subject.grade}</td>
+              <td>${subject.remarks}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+          
+          // Update summary cards
+          document.getElementById('totalScore').textContent = resultData.totalScore;
+          document.getElementById('averageScore').textContent = resultData.averageScore;
+          document.getElementById('performanceRemark').textContent = resultData.performanceRemark;
+          document.getElementById('classPosition').textContent = resultData.position;
+          
+          // Show results
+          resultOutput.style.display = 'block';
+        }, 1500);
+      });
+      
+      // New search function
+      newSearchBtn.addEventListener('click', function() {
+        document.getElementById('class').value = '';
+        document.getElementById('fullName').value = '';
+        document.getElementById('dob').value = '';
+        resultOutput.style.display = 'none';
+      });
+      
+      // Print results function
+      printBtn.addEventListener('click', function() {
+        window.print();
+      });
+    });
+  </script>
+</body>
+</html>

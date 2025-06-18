@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Kpembe M/A JHS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e65100;
+      --primary-dark: #bf360c;
+      --accent: #ffb300;
+      --light: #fffaf5;
+      --dark: #1a1a1a;
+      --card-bg: #2a2a2a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.7;
+    }
+    
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(230, 81, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 90% 60%, rgba(255, 179, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 50% 80%, rgba(230, 81, 0, 0.05) 0%, transparent 15%);
+      z-index: -1;
+      animation: float 25s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-5px, -5px); }
+      50% { transform: translate(5px, 5px); }
+      75% { transform: translate(-5px, 5px); }
+    }
+    
+    /* Header with Glow Effect */
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4);
+      animation: headerGlow 3s infinite alternate;
+    }
+    
+    @keyframes headerGlow {
+      0% { box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4); }
+      100% { box-shadow: 0 4px 30px rgba(255, 179, 0, 0.6); }
+    }
+    
+    .logo {
+      height: 65px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .logo:hover {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    
+    nav a i {
+      margin-right: 8px;
+      font-size: 0.9em;
+    }
+    
+    nav a.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    nav a:hover::before {
+      width: 100%;
+    }
+    
+    /* Main Content */
+    .content-section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .content-section h1 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      text-shadow: 0 0 10px rgba(255, 179, 0, 0.3);
+    }
+    
+    .content-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    .content-section p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 30px auto 50px;
+      color: #e0e0e0;
+      text-align: center;
+    }
+    
+    /* Contact Layout */
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 30px;
+    }
+    
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(42, 42, 42, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(230, 81, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+    
+    .contact-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--accent));
+    }
+    
+    .contact-form h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .contact-form h2 i {
+      margin-right: 15px;
+      background: rgba(230, 81, 0, 0.2);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #e0e0e0;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(30, 30, 30, 0.8);
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 179, 0, 0.2);
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .contact-form button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      padding: 15px 35px;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 15px rgba(230, 81, 0, 0.3);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    .contact-form button i {
+      margin-right: 10px;
+      font-size: 1.3rem;
+    }
+    
+    .contact-form button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(230, 81, 0, 0.5);
+    }
+    
+    /* Contact Information */
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(42, 42, 42, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(230, 81, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+    
+    .contact-info::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--primary));
+    }
+    
+    .contact-info h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .contact-info h2 i {
+      margin-right: 15px;
+      background: rgba(230, 81, 0, 0.2);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .contact-icon {
+      background: rgba(230, 81, 0, 0.2);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    
+    .contact-text h3 {
+      color: var(--accent);
+      margin-bottom: 5px;
+      font-size: 1.4rem;
+    }
+    
+    .contact-text p {
+      font-size: 1.1rem;
+      color: #e0e0e0;
+      text-align: left;
+      margin: 0;
+    }
+    
+    /* Live Map */
+    .map-container {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      height: 350px;
+      position: relative;
+      border: 2px solid rgba(230, 81, 0, 0.3);
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(20%) contrast(110%);
+    }
+    
+    .map-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      color: white;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%231a1a1a' d='M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,100L1360,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+    }
+    
+    footer p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      color: white;
+    }
+    
+    footer strong {
+      color: var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    footer strong:hover {
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.8);
+      transform: scale(1.05);
+    }
+    
+    /* Animations */
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      
+      nav {
+        margin-top: 15px;
+      }
+      
+      .content-section {
+        padding: 60px 20px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.6rem;
+      }
+      
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .content-section {
+        padding: 50px 15px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.2rem;
+      }
+      
+      .content-section p {
+        font-size: 1.1rem;
+      }
+      
+      .contact-form, .contact-info {
+        padding: 30px;
+      }
+      
+      nav a span {
+        display: none;
+      }
+      
+      nav a i {
+        margin-right: 0;
+        font-size: 1.2em;
+      }
+      
+      nav a {
+        padding: 10px;
+      }
+      
+      footer p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .logo {
+        height: 55px;
+      }
+      
+      .content-section h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-form h2, .contact-info h2 {
+        font-size: 1.6rem;
+      }
+      
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="School Logo" class="logo">
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a>
+      <a href="academics.html"><i class="fas fa-book"></i> <span>Academics</span></a>
+      <a href="staff.html"><i class="fas fa-chalkboard-teacher"></i> <span>Staff</span></a>
+      <a href="news.html"><i class="fas fa-newspaper"></i> <span>News</span></a>
+      <a href="results.html"><i class="fas fa-chart-line"></i> <span>Results</span></a>
+      <a href="contact.html" class="active"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+    </nav>
+  </header>
+
+  <main class="content-section">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you! Reach out to us with any questions, feedback, or inquiries.</p>
+    
+    <div class="contact-container">
+      <div class="contact-form">
+        <h2><i class="fas fa-comments"></i> Send us a Message</h2>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="general">General Inquiry</option>
+              <option value="admission">Admission Information</option>
+              <option value="feedback">Feedback/Suggestion</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+          </div>
+          
+          <button type="submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+      
+      <div class="contact-info">
+        <h2><i class="fas fa-map-marker-alt"></i> Contact Information</h2>
+        
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Phone Number</h3>
+              <p>+233 24 123 4567</p>
+              <p>+233 20 987 6543</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Email Address</h3>
+              <p>info@kpembemajhs.edu.gh</p>
+              <p>admin@kpembemajhs.edu.gh</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="contact-text">
+              <h3>Working Hours</h3>
+              <p>Monday-Friday: 7:30 AM - 4:00 PM</p>
+              <p>Saturday: 8:00 AM - 12:00 PM</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-pin"></i>
+            </div>
+            <div class="contact-text">
+              <h3>School Address</h3>
+              <p>Kpembe, Salaga</p>
+              <p>Savannah Region, Ghana</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.150041168058!2d-0.518889685734279!3d8.99873079417005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfd7e3c4b4a5e0a9%3A0x8b2d8a2b8c9a3a1f!2sKpembe%2C%20Salaga%2C%20Ghana!5e0!3m2!1sen!2sus!4v1628780000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+          <div class="map-overlay">
+            Kpembe, Salaga - Savannah Region, Ghana
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by <strong>Universal Class of 2020</strong> with ❤️</p>
+  </footer>
+
+  <script>
+    // Form submission handling
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Simple validation
+      if(name && email && message) {
+        // Show success message
+        alert(`Thank you ${name}! Your message has been sent successfully. We'll contact you at ${email} soon.`);
+        
+        // Reset form
+        this.reset();
+      } else {
+        alert('Please fill in all required fields.');
+      }
+    });
+    
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const animatedElements = document.querySelectorAll('.contact-form, .contact-info');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeUp 0.8s ease forwards';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      animatedElements.forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>

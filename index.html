@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPEMBE M/A JHS - Text Navigation Design</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding-top: 95px;
+      line-height: 1.6;
+    }
+
+    /* Header with Logo and Text Navigation */
+    header {
+      background: linear-gradient(90deg, #e65100 0%, #bf360c 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      height: 65px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .logo:hover {
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    .school-name {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .school-name span {
+      color: #ffb300;
+      font-weight: 800;
+    }
+
+    /* Text-Based Navigation */
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 8px 0;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: #ffb300;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffb300;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section with Background */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      overflow: hidden;
+    }
+
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
+                  url('hero.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transform: scale(1.05);
+      transition: transform 10s ease-out;
+      will-change: transform;
+    }
+
+    .hero:hover .hero-background {
+      transform: scale(1.1);
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 40px;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: fadeInUp 1.5s ease-out;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero h1 strong {
+      color: #ffb300;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 strong::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #ffb300;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.8s ease;
+    }
+
+    .hero:hover h1 strong::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .hero p {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      margin-top: 30px;
+      margin-bottom: 40px;
+      color: #ffb300;
+      font-weight: 600;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      animation: fadeInUp 1.8s ease-out;
+    }
+
+    /* Call to Action Buttons */
+    .cta-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #ffb300 0%, #e65100 100%);
+      color: white;
+      padding: 16px 40px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 20px rgba(230, 81, 0, 0.4);
+      transition: all 0.4s ease;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(230, 81, 0, 0.6);
+      background: linear-gradient(135deg, #e65100 0%, #ffb300 100%);
+    }
+
+    /* Mission Section */
+    .mission {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 80px 20px;
+      text-align: center;
+      border-top: 3px solid #e65100;
+      border-bottom: 3px solid #e65100;
+    }
+
+    .mission h2 {
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+      color: #ffb300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .mission p {
+      font-size: 1.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Values Section */
+    .values {
+      padding: 80px 20px;
+      text-align: center;
+      background: rgba(15, 15, 15, 0.95);
+    }
+
+    .values h2 {
+      font-size: 2.8rem;
+      margin-bottom: 60px;
+      color: #ffb300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .values-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      background: rgba(40, 40, 40, 0.9);
+      padding: 40px 30px;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 300px;
+      max-width: 350px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-top: 3px solid #e65100;
+      transition: transform 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .value-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #ffb300;
+    }
+
+    .value-card p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* Achievements Section */
+    .achievements {
+      padding: 80px 20px;
+      text-align: center;
+      background: rgba(25, 25, 25, 0.95);
+    }
+
+    .achievements h2 {
+      font-size: 2.8rem;
+      margin-bottom: 60px;
+      color: #ffb300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(230, 81, 0, 0.15);
+      padding: 40px 30px;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 250px;
+      max-width: 300px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 179, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      background: rgba(230, 81, 0, 0.25);
+      transform: scale(1.05);
+    }
+
+    .stat-card .number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ffb300;
+      margin-bottom: 15px;
+    }
+
+    .stat-card p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 80px 20px;
+      text-align: center;
+      border-top: 3px solid #e65100;
+    }
+
+    .contact h2 {
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+      color: #ffb300;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .contact-info {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-info p {
+      margin: 15px 0;
+    }
+
+    .contact-info a {
+      color: #ffb300;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+      text-shadow: 0 0 10px rgba(255, 179, 0, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(90deg, #e65100 0%, #bf360c 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("hero.jpg");
+      background-size: cover;
+    }
+
+    footer p {
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer strong {
+      color: #ffb300;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    footer strong:hover {
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.8);
+      transform: scale(1.05);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 1100px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+      }
+      
+      nav {
+        gap: 15px;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.5rem;
+      }
+      
+      .mission h2, .values h2, .achievements h2, .contact h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-content {
+        padding: 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
+      
+      .cta-button {
+        padding: 14px 30px;
+        font-size: 1rem;
+      }
+      
+      nav a {
+        font-size: 0.95rem;
+        padding: 6px 0;
+      }
+      
+      .mission p, .contact-info {
+        font-size: 1.1rem;
+      }
+      
+      .value-card, .stat-card {
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .school-name {
+        font-size: 1.5rem;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .cta-container {
+        gap: 15px;
+      }
+      
+      nav {
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="KPEMBE M/A JHS Logo" class="logo">
+      <div class="school-name">KPEMBE <span>M/A JHS</span></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="staff.html">Staff</a>
+      <a href="news.html">News</a>
+      <a href="results.html">Results</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <h1>Welcome to <strong>KPEMBE M/A JHS</strong></h1>
+      <p>Education and Culture for Development</p>
+      <div class="cta-container">
+        <a href="about.html" class="cta-button">Learn More</a>
+        <a href="contact.html" class="cta-button">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission">
+    <h2>Our Mission</h2>
+    <p>At KPEMBE M/A JHS, we are dedicated to providing quality education that nurtures intellectual growth, cultural awareness, and personal development. We empower our students to become responsible citizens and future leaders.</p>
+  </section>
+
+  <section class="values">
+    <h2>Our Core Values</h2>
+    <div class="values-container">
+      <div class="value-card">
+        <h3>Excellence</h3>
+        <p>We strive for academic excellence and personal growth through rigorous curriculum and supportive learning environments.</p>
+      </div>
+      <div class="value-card">
+        <h3>Integrity</h3>
+        <p>We uphold the highest ethical standards and foster an environment of trust, honesty, and responsibility.</p>
+      </div>
+      <div class="value-card">
+        <h3>Community</h3>
+        <p>We build strong relationships with families and our local community to support student success and development.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="achievements">
+    <h2>Our Achievements</h2>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="number">98%</div>
+        <p>Graduation Rate</p>
+      </div>
+      <div class="stat-card">
+        <div class="number">25+</div>
+        <p>Qualified Teachers</p>
+      </div>
+      <div class="stat-card">
+        <div class="number">500+</div>
+        <p>Successful Students</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Information</h2>
+    <div class="contact-info">
+      <p><strong>Address:</strong> KPEMBE, Tamale, Northern Region, Ghana</p>
+      <p><strong>Phone:</strong> +233 24 123 4567</p>
+      <p><strong>Email:</strong> <a href="mailto:info@kpembemajhs.edu.gh">info@kpembemajhs.edu.gh</a></p>
+      <p><strong>Office Hours:</strong> Monday-Friday, 7:30 AM - 4:30 PM</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Developed by <strong>Universal Class of 2020</strong> with ❤️</p>
+  </footer>
+
+  <script>
+    // Simple animations for text elements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate navigation items
+      const navItems = document.querySelectorAll('nav a');
+      navItems.forEach((item, index) => {
+        item.style.animation = `fadeIn 0.5s ease forwards ${index * 0.1 + 0.5}s`;
+        item.style.opacity = '0';
+      });
+      
+      // Add animation to footer
+      const footer = document.querySelector('footer');
+      footer.style.animation = 'fadeIn 1s ease forwards 1.2s';
+      footer.style.opacity = '0';
+      
+      // Add animation to school name
+      const schoolName = document.querySelector('.school-name');
+      schoolName.style.animation = 'fadeInDown 0.8s ease forwards 0.3s';
+      schoolName.style.opacity = '0';
+      schoolName.style.transform = 'translateY(-20px)';
+      
+      // Add keyframes for animations
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
+</body>
+</html>

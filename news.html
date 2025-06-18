@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News | Kpembe M/A JHS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e65100;
+      --primary-dark: #bf360c;
+      --accent: #ffb300;
+      --light: #fffaf5;
+      --dark: #1a1a1a;
+      --card-bg: #2a2a2a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.7;
+    }
+    
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(230, 81, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 90% 60%, rgba(255, 179, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 50% 80%, rgba(230, 81, 0, 0.05) 0%, transparent 15%);
+      z-index: -1;
+      animation: float 25s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-5px, -5px); }
+      50% { transform: translate(5px, 5px); }
+      75% { transform: translate(-5px, 5px); }
+    }
+    
+    /* Header with Glow Effect */
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4);
+      animation: headerGlow 3s infinite alternate;
+    }
+    
+    @keyframes headerGlow {
+      0% { box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4); }
+      100% { box-shadow: 0 4px 30px rgba(255, 179, 0, 0.6); }
+    }
+    
+    .logo {
+      height: 65px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .logo:hover {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    
+    nav a i {
+      margin-right: 8px;
+      font-size: 0.9em;
+    }
+    
+    nav a.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    nav a:hover::before {
+      width: 100%;
+    }
+    
+    /* Main Content */
+    .content-section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .content-section h1 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      text-shadow: 0 0 10px rgba(255, 179, 0, 0.3);
+    }
+    
+    .content-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    .content-section p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 30px auto 50px;
+      color: #e0e0e0;
+      text-align: center;
+    }
+    
+    /* News Tabs */
+    .news-tabs {
+      background: rgba(42, 42, 42, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(230, 81, 0, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .tab-headers {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 2px solid rgba(255, 179, 0, 0.2);
+      background: rgba(30, 30, 30, 0.9);
+      position: relative;
+    }
+    
+    .tab-header {
+      padding: 20px 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #bbb;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .tab-header i {
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+    }
+    
+    .tab-header:hover {
+      color: var(--accent);
+    }
+    
+    .tab-header.active {
+      color: var(--accent);
+      background: rgba(42, 42, 42, 0.85);
+    }
+    
+    .tab-header.active i {
+      transform: rotate(360deg);
+      color: var(--accent);
+    }
+    
+    .tab-header.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+    }
+    
+    .tab-contents {
+      padding: 40px;
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* News Card */
+    .news-card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      transition: all 0.4s ease;
+      margin-bottom: 30px;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .news-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(230, 81, 0, 0.25);
+    }
+    
+    .news-image {
+      flex: 0 0 40%;
+      min-height: 250px;
+      overflow: hidden;
+    }
+    
+    .news-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .news-card:hover .news-image img {
+      transform: scale(1.05);
+    }
+    
+    .news-content {
+      flex: 1;
+      padding: 30px;
+    }
+    
+    .news-date {
+      display: inline-block;
+      background: rgba(230, 81, 0, 0.2);
+      color: var(--accent);
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .news-title {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    
+    .news-excerpt {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+    
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .read-more:hover {
+      gap: 12px;
+      text-shadow: 0 0 10px rgba(255, 179, 0, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%231a1a1a' d='M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,100L1360,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+    }
+    
+    footer p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      color: white;
+    }
+    
+    footer strong {
+      color: var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    footer strong:hover {
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.8);
+      transform: scale(1.05);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      
+      nav {
+        margin-top: 15px;
+      }
+      
+      .content-section {
+        padding: 60px 20px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.6rem;
+      }
+      
+      .tab-headers {
+        flex-direction: column;
+      }
+      
+      .tab-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .news-card {
+        flex-direction: column;
+      }
+      
+      .news-image {
+        min-height: 200px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .content-section {
+        padding: 50px 15px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.2rem;
+      }
+      
+      .content-section p {
+        font-size: 1.1rem;
+      }
+      
+      .tab-contents {
+        padding: 25px;
+      }
+      
+      nav a span {
+        display: none;
+      }
+      
+      nav a i {
+        margin-right: 0;
+        font-size: 1.2em;
+      }
+      
+      nav a {
+        padding: 10px;
+      }
+      
+      footer p {
+        font-size: 1rem;
+      }
+      
+      .news-title {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .logo {
+        height: 55px;
+      }
+      
+      .content-section h1 {
+        font-size: 2rem;
+      }
+      
+      .tab-header {
+        padding: 15px 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="School Logo" class="logo">
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a>
+      <a href="academics.html"><i class="fas fa-book"></i> <span>Academics</span></a>
+      <a href="staff.html"><i class="fas fa-chalkboard-teacher"></i> <span>Staff</span></a>
+      <a href="news.html" class="active"><i class="fas fa-newspaper"></i> <span>News</span></a>
+      <a href="results.html"><i class="fas fa-chart-line"></i> <span>Results</span></a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+    </nav>
+  </header>
+
+  <main class="content-section">
+    <h1>School News & Updates</h1>
+    <p>Stay informed with the latest happenings at Kpembe M/A Junior High School</p>
+    
+    <div class="news-tabs">
+      <div class="tab-headers">
+        <div class="tab-header active" data-tab="tab1">
+          <i class="fas fa-trophy"></i> Achievements
+        </div>
+        <div class="tab-header" data-tab="tab2">
+          <i class="fas fa-calendar"></i> Events
+        </div>
+        <div class="tab-header" data-tab="tab3">
+          <i class="fas fa-book"></i> Academics
+        </div>
+        <div class="tab-header" data-tab="tab4">
+          <i class="fas fa-users"></i> Community
+        </div>
+        <div class="tab-header" data-tab="tab5">
+          <i class="fas fa-bullhorn"></i> Announcements
+        </div>
+      </div>
+      
+      <div class="tab-contents">
+        <!-- Tab 1: Achievements -->
+        <div class="tab-content active" id="tab1">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Science Fair Winners">
+            </div>
+            <div class="news-content">
+              <div class="news-date">June 15, 2023</div>
+              <h2 class="news-title">Students Win Regional Science Fair</h2>
+              <p class="news-excerpt">Our Form 2 science team took first place at the Savannah Regional Science Fair with their innovative water purification project. The team impressed judges with their practical solution to clean drinking water challenges in rural communities.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Math Olympiad">
+            </div>
+            <div class="news-content">
+              <div class="news-date">May 28, 2023</div>
+              <h2 class="news-title">Math Olympiad Champions</h2>
+              <p class="news-excerpt">Kpembe M/A JHS dominated the District Math Olympiad, with three of our students placing in the top five. Their achievement highlights our commitment to academic excellence in mathematics education.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 2: Events -->
+        <div class="tab-content" id="tab2">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cultural Day">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 20, 2023</div>
+              <h2 class="news-title">Annual Cultural Day Celebration</h2>
+              <p class="news-excerpt">Join us for our vibrant Cultural Day celebration on August 12th. Students will showcase traditional dances, music, and foods from Ghana's diverse ethnic groups. The event promotes cultural appreciation and unity.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Career Fair">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 5, 2023</div>
+              <h2 class="news-title">Career Fair for Final Year Students</h2>
+              <p class="news-excerpt">Our annual Career Fair will be held on September 5th, featuring professionals from various fields. Students will have the opportunity to explore different career paths and receive guidance on educational opportunities.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 3: Academics -->
+        <div class="tab-content" id="tab3">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1581726707445-75cbe4efc586?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="New Computer Lab">
+            </div>
+            <div class="news-content">
+              <div class="news-date">June 30, 2023</div>
+              <h2 class="news-title">New Computer Lab Opens</h2>
+              <p class="news-excerpt">Thanks to a generous donation from the Ghana Education Service, our new computer lab is now operational. Equipped with 25 modern computers, the lab will significantly enhance our ICT curriculum and digital literacy programs.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Reading Program">
+            </div>
+            <div class="news-content">
+              <div class="news-date">June 12, 2023</div>
+              <h2 class="news-title">Literacy Program Launched</h2>
+              <p class="news-excerpt">We've launched a new literacy program aimed at improving reading comprehension across all grade levels. The initiative includes a reading challenge with exciting prizes for students who achieve their reading goals.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 4: Community -->
+        <div class="tab-content" id="tab4">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Community Cleanup">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 18, 2023</div>
+              <h2 class="news-title">Students Lead Community Cleanup</h2>
+              <p class="news-excerpt">Over 100 students participated in our annual community cleanup initiative, collecting waste and educating residents about proper sanitation practices. The project promotes environmental stewardship and community responsibility.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Alumni Donation">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 3, 2023</div>
+              <h2 class="news-title">Alumni Donate Science Equipment</h2>
+              <p class="news-excerpt">The Class of 2015 has donated modern science laboratory equipment worth GHC 15,000. This generous contribution will enhance our practical science instruction and support student experiments.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tab 5: Announcements -->
+        <div class="tab-content" id="tab5">
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Term Dates">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 25, 2023</div>
+              <h2 class="news-title">2023/2024 Academic Calendar</h2>
+              <p class="news-excerpt">The academic calendar for the 2023/2024 school year is now available. Key dates include term beginnings, examination periods, and holidays. Parents are encouraged to review the schedule for planning purposes.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          
+          <div class="news-card">
+            <div class="news-image">
+              <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Parent-Teacher Meeting">
+            </div>
+            <div class="news-content">
+              <div class="news-date">July 10, 2023</div>
+              <h2 class="news-title">Parent-Teacher Conference Dates</h2>
+              <p class="news-excerpt">Mark your calendars! Parent-teacher conferences will be held from August 7th-9th. These meetings are crucial for discussing student progress and setting academic goals for the upcoming term.</p>
+              <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by <strong>Universal Class of 2020</strong> with ❤️</p>
+  </footer>
+
+  <script>
+    // Tab functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabHeaders = document.querySelectorAll('.tab-header');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          // Remove active class from all headers
+          tabHeaders.forEach(h => h.classList.remove('active'));
+          // Add active class to clicked header
+          header.classList.add('active');
+          
+          // Hide all tab contents
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Show selected tab content
+          const tabId = header.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+      
+      // News card hover effect
+      const newsCards = document.querySelectorAll('.news-card');
+      newsCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

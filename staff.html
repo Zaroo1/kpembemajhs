@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff | Kpembe M/A JHS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e65100;
+      --primary-dark: #bf360c;
+      --accent: #ffb300;
+      --light: #fffaf5;
+      --dark: #1a1a1a;
+      --card-bg: #2a2a2a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.7;
+    }
+    
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(230, 81, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 90% 60%, rgba(255, 179, 0, 0.05) 0%, transparent 15%),
+        radial-gradient(circle at 50% 80%, rgba(230, 81, 0, 0.05) 0%, transparent 15%);
+      z-index: -1;
+      animation: float 25s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-5px, -5px); }
+      50% { transform: translate(5px, 5px); }
+      75% { transform: translate(-5px, 5px); }
+    }
+    
+    /* Header with Glow Effect */
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4);
+      animation: headerGlow 3s infinite alternate;
+    }
+    
+    @keyframes headerGlow {
+      0% { box-shadow: 0 4px 20px rgba(230, 81, 0, 0.4); }
+      100% { box-shadow: 0 4px 30px rgba(255, 179, 0, 0.6); }
+    }
+    
+    .logo {
+      height: 65px;
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    
+    .logo:hover {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    
+    nav a i {
+      margin-right: 8px;
+      font-size: 0.9em;
+    }
+    
+    nav a.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      color: var(--accent);
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    nav a:hover::before {
+      width: 100%;
+    }
+    
+    /* Main Content */
+    .content-section {
+      padding: 80px 20px;
+      max-width: 1400px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .content-section h1 {
+      text-align: center;
+      color: var(--accent);
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      text-shadow: 0 0 10px rgba(255, 179, 0, 0.3);
+    }
+    
+    .content-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    .content-section p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 30px auto 50px;
+      color: #e0e0e0;
+      text-align: center;
+    }
+    
+    /* Teacher Grid */
+    .teacher-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 35px;
+      margin-top: 30px;
+    }
+    
+    .teacher-card {
+      background: rgba(42, 42, 42, 0.85);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(230, 81, 0, 0.2);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    
+    .teacher-card:nth-child(1) { animation: fadeUp 0.8s ease forwards 0.1s; }
+    .teacher-card:nth-child(2) { animation: fadeUp 0.8s ease forwards 0.2s; }
+    .teacher-card:nth-child(3) { animation: fadeUp 0.8s ease forwards 0.3s; }
+    .teacher-card:nth-child(4) { animation: fadeUp 0.8s ease forwards 0.4s; }
+    .teacher-card:nth-child(5) { animation: fadeUp 0.8s ease forwards 0.5s; }
+    .teacher-card:nth-child(6) { animation: fadeUp 0.8s ease forwards 0.6s; }
+    .teacher-card:nth-child(7) { animation: fadeUp 0.8s ease forwards 0.7s; }
+    .teacher-card:nth-child(8) { animation: fadeUp 0.8s ease forwards 0.8s; }
+    
+    .teacher-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(230, 81, 0, 0.35);
+    }
+    
+    .teacher-img {
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .teacher-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    
+    .teacher-card:hover .teacher-img img {
+      transform: scale(1.1);
+    }
+    
+    .teacher-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    
+    .teacher-subject {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: var(--dark);
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      z-index: 2;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    .teacher-info {
+      padding: 25px;
+      position: relative;
+    }
+    
+    .teacher-info h3 {
+      color: var(--accent);
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+    }
+    
+    .teacher-position {
+      color: #bbb;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .teacher-bio {
+      color: #e0e0e0;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+    
+    .teacher-contact {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .phone-number {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .phone-number i {
+      font-size: 1.2rem;
+    }
+    
+    /* Contact Button */
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--accent);
+      padding: 8px 20px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      border: 2px solid var(--accent);
+      transition: all 0.3s ease;
+      margin-left: auto;
+    }
+    
+    .contact-btn:hover {
+      background: var(--accent);
+      color: var(--dark);
+      transform: translateY(-3px);
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 30px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%231a1a1a' d='M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,100L1360,100C1280,100,1120,100,960,100C800,100,640,100,480,100C320,100,160,100,80,100L0,100Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+    }
+    
+    footer p {
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      color: white;
+    }
+    
+    footer strong {
+      color: var(--accent);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    footer strong:hover {
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.8);
+      transform: scale(1.05);
+    }
+    
+    /* Animations */
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1100px) {
+      .teacher-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+    
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      
+      nav {
+        margin-top: 15px;
+      }
+      
+      .content-section {
+        padding: 60px 20px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.6rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .content-section {
+        padding: 50px 15px;
+      }
+      
+      .content-section h1 {
+        font-size: 2.2rem;
+      }
+      
+      .content-section p {
+        font-size: 1.1rem;
+      }
+      
+      .teacher-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      nav a span {
+        display: none;
+      }
+      
+      nav a i {
+        margin-right: 0;
+        font-size: 1.2em;
+      }
+      
+      nav a {
+        padding: 10px;
+      }
+      
+      footer p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .logo {
+        height: 55px;
+      }
+      
+      .content-section h1 {
+        font-size: 2rem;
+      }
+      
+      .teacher-img {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="School Logo" class="logo">
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a>
+      <a href="academics.html"><i class="fas fa-book"></i> <span>Academics</span></a>
+      <a href="staff.html" class="active"><i class="fas fa-chalkboard-teacher"></i> <span>Staff</span></a>
+      <a href="news.html"><i class="fas fa-newspaper"></i> <span>News</span></a>
+      <a href="results.html"><i class="fas fa-chart-line"></i> <span>Results</span></a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+    </nav>
+  </header>
+
+  <main class="content-section">
+    <h1>Meet Our Teachers</h1>
+    <p>Dedicated and passionate educators shaping the future of our students.</p>
+
+    <div id="teachers" class="teacher-grid">
+      <!-- Teacher 1 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="muba.jpg" alt="Mr. Kwame Ansah">
+          <div class="teacher-subject">Headteacher</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mr. Mubarik</h3>
+          <span class="teacher-position">Mathematics</span>
+          <p class="teacher-bio">With 15 years of teaching experience, Mr. Rashad specializes in making complex math concepts accessible to all students. He holds a Master's in Education and believes in the transformative power of mathematics.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 24 123 4567</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+
+
+      <!-- Teacher 2 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="rashad.jpg" alt="Ms. Akosua Mensah">
+          <div class="teacher-subject">Gonja</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mr. Inusah Rashad</h3>
+          <span class="teacher-position">Ghanaian Language</span>
+          <p class="teacher-bio">Mr.Rashad holds a degree in English Literature and has been inspiring students for 10 years. He is passionate about developing strong communication skills and fostering a love for reading.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 20 765 4321</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+<!-- Teacher 3 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="zaroo.jpg" alt="Mr. Samuel Boateng">
+          <div class="teacher-subject">Science</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mr. Samuel Boateng</h3>
+          <span class="teacher-position">Integrated Science</span>
+          <p class="teacher-bio">A science enthusiast with a background in Biochemistry, Mr. Boateng brings real-world applications into the classroom. He's known for his exciting experiments that make science come alive.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 54 987 6543</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+<!-- Teacher 4 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="john.jpg" alt="Mrs. Ama Owusu">
+          <div class="teacher-subject">Social Studies</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mrs. Ama Owusu</h3>
+          <span class="teacher-position">Social Studies</span>
+          <p class="teacher-bio">With a passion for Ghanaian history and culture, Mrs. Owusu has been teaching Social Studies for 12 years. She believes in developing well-rounded citizens who understand their heritage.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 27 345 6789</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      
+
+<!-- Teacher 5 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="aisha.jpg" alt="Mr. Kofi Asante">
+          <div class="teacher-subject">ICT</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mr. Kofi Asante</h3>
+          <span class="teacher-position">Information Technology</span>
+          <p class="teacher-bio">A tech enthusiast with industry experience, Mr. Asante prepares students for the digital age. He specializes in programming fundamentals and digital literacy skills.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 50 112 2334</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      
+
+<!-- Teacher 6 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Ms. Efua Nkrumah">
+          <div class="teacher-subject">Arts</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Ms. Efua Nkrumah</h3>
+          <span class="teacher-position">Creative Arts & Design</span>
+          <p class="teacher-bio">An accomplished artist with exhibitions in Accra, Ms. Nkrumah encourages creative expression through various media. She believes art education develops critical thinking skills.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 55 667 7889</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Teacher 7 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Mr. Yaw Boateng">
+          <div class="teacher-subject">Technology</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Mr. Yaw Boateng</h3>
+          <span class="teacher-position">Career Technology</span>
+          <p class="teacher-bio">With a background in engineering, Mr. Boateng teaches practical skills that prepare students for technical careers. He focuses on hands-on learning and real-world applications.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 26 554 4332</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Teacher 8 -->
+      <div class="teacher-card">
+        <div class="teacher-img">
+          <img src="https://images.unsplash.com/photo-1580894908361-967195033215?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Ms. Abena Agyeman">
+          <div class="teacher-subject">Languages</div>
+        </div>
+        <div class="teacher-info">
+          <h3>Ms. Abena Agyeman</h3>
+          <span class="teacher-position">Gonja Language</span>
+          <p class="teacher-bio">A native Gonja speaker with a passion for preserving cultural heritage, Ms. Agyeman teaches both language and traditions. She develops engaging materials to make language learning enjoyable.</p>
+          <div class="teacher-contact">
+            <div class="phone-number">
+              <i class="fas fa-phone"></i>
+              <span>+233 24 998 8776</span>
+            </div>
+            <a href="#" class="contact-btn">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by <strong>Universal Class of 2020</strong> with ❤️</p>
+  </footer>
+
+  <script>
+    // Simple animation on scroll for teacher cards
+    document.addEventListener('DOMContentLoaded', function() {
+      const teacherCards = document.querySelectorAll('.teacher-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeUp 0.8s ease forwards';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      teacherCards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
